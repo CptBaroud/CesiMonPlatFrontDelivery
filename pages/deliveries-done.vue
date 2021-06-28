@@ -7,7 +7,7 @@
       >
 <v-card flat color="background">
     <v-card-title>
-        Toutes les livraisons en attente
+        Livraisons terminées
     </v-card-title>
   <v-data-iterator
     :items="delivery"
@@ -17,10 +17,10 @@
     <!-- <template #default="{items}"> -->
       <v-row>
         <v-col
-          v-for="item in doneFalse"
+          v-for="item in doneTrue"
           :key="item._id"
         >
-        <Deliveries
+        <CompletedDelivery
             :item="item"
         />
         </v-col>
@@ -35,18 +35,18 @@
 
 <script>
 
-import Deliveries from '../components/deliveries.vue'
+import CompletedDelivery from '../components/completedDelivery.vue'
 
 export default {
-  components: Deliveries,
+  components: CompletedDelivery,
   computed: {
     delivery: {
       get () {
         return this.$store.getters['delivery/delivery']
       }
     },
-    doneFalse () {
-      return this.delivery.filter(item => item.done === false && item.status === 0)
+    doneTrue () {
+      return this.delivery.filter(item => item.done === true && item.status === 5)
     }
   },
   mounted () {

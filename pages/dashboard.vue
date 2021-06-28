@@ -7,7 +7,7 @@
       >
 <v-card flat color="background">
     <v-card-title>
-        Toutes les livraisons en attente
+        Livraison en cours
     </v-card-title>
   <v-data-iterator
     :items="delivery"
@@ -20,7 +20,7 @@
           v-for="item in doneFalse"
           :key="item._id"
         >
-        <Deliveries
+        <AcceptedDelivery
             :item="item"
         />
         </v-col>
@@ -35,10 +35,10 @@
 
 <script>
 
-import Deliveries from '../components/deliveries.vue'
+import AcceptedDelivery from '../components/acceptedDelivery.vue'
 
 export default {
-  components: Deliveries,
+  components: AcceptedDelivery,
   computed: {
     delivery: {
       get () {
@@ -46,7 +46,7 @@ export default {
       }
     },
     doneFalse () {
-      return this.delivery.filter(item => item.done === false && item.status === 0)
+      return this.delivery.filter(item => item.done === false && (item.status === 1 || item.status === 3))
     }
   },
   mounted () {

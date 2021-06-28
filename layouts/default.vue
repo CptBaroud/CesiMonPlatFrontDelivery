@@ -148,19 +148,30 @@ export default {
           icon: 'mdi-home-outline',
           title: 'Accueil',
           to: '/'
+        },
+        {
+          icon: 'mdi-truck-outline',
+          title: 'Deliveries',
+          to: '/dashboard'
+        },
+        {
+          icon: 'mdi-flag-outline',
+          title: 'Deliveries Done',
+          to: '/deliveries-done'
         }
       ],
-      miniVariant: true,
+      miniVariant: true
     }
   },
   computed: {
-    order: {
+    delivery: {
       get () {
-        return this.$store.getters['order/order']
+        return this.$store.getters['delivery/delivery']
       }
     }
   },
   mounted () {
+    this.$store.dispatch('delivery/fetch', this.$auth.getToken('local'))
   },
   methods: {
     switchTheme () {
