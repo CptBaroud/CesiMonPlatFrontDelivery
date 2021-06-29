@@ -4,7 +4,7 @@
       v-show="$auth.loggedIn"
       v-model="drawer"
       :mini-variant="miniVariant"
-      mini-variant-width="5em"
+      mini-variant-width="6em"
       fixed
       color="secondary"
       elevation="0"
@@ -15,12 +15,11 @@
         class="my-4"
       >
         <img
-          v-if="!miniVariant"
-          width="128"
+          width="48"
           height="64"
           class="ml-4 mt-8 mb-8"
           alt="Login"
-          src="https://www.positivethinking.tech/wp-content/uploads/2021/01/Logo-Vuejs.png"
+          :src="logo"
         >
         <v-list-item
           v-for="(item, i) in items"
@@ -105,9 +104,9 @@
           <v-menu open-on-hover bottom offset-y>
             <template #activator="{ on, attrs }">
               <v-list-item
+                v-if="$auth.user"
                 v-bind="attrs"
                 v-on="on"
-                v-if="$auth.user"
               >
                 <v-list-item-avatar style="border: solid var(--v-primary-base) 2px">
                   <v-img :src="$auth.user.avatar" />
@@ -152,7 +151,7 @@ export default {
         {
           icon: 'mdi-truck-outline',
           title: 'Deliveries',
-          to: '/dashboard'
+          to: '/delivery'
         },
         {
           icon: 'mdi-flag-outline',
@@ -164,14 +163,18 @@ export default {
     }
   },
   computed: {
-    delivery: {
-      get () {
-        return this.$store.getters['delivery/delivery']
-      }
+    logo () {
+      return this.$vuetify.theme.dark ? 'http://localhost:3000/images/logoDark.svg' : 'http://localhost:3000/images/logoLight.svg'
     }
   },
   mounted () {
-    this.$store.dispatch('delivery/fetch', this.$auth.getToken('local'))
+    if (this.$auth.loggedIn) {
+      this.$store.dispatch('delivery/fetch', {
+        token: this.$auth.getToken('local'),
+        user: this.$auth.user.id
+      })
+      this.$store.dispatch('order/fetch', this.$auth.getToken('local'))
+    }
   },
   methods: {
     switchTheme () {

@@ -3,27 +3,31 @@ export default {
     state.delivery = data
   },
 
+  addDelivery (state, data) {
+    state.delivery.push(data)
+  },
+
   acceptDelivery (state, data) {
-    const index = state.order.findIndex((item) => {
+    const index = state.delivery.findIndex((item) => {
       return item._id === data._id
     })
-    state.order.splice(index, 1)
-    state.order.push(data)
+    state.delivery.splice(index, 1)
+    state.delivery.push(data)
   },
 
   refuseDelivery (state, data) {
-    const index = state.order.findIndex((item) => {
+    const index = state.delivery.findIndex((item) => {
       return item._id === data._id
     })
-    state.order.splice(index, 1)
-    state.order.push(data)
+    state.delivery.splice(index, 1)
+    state.delivery.push(data)
   },
 
   takenDelivery (state, data) {
-    const index = state.order.findIndex((item) => {
+    const index = state.delivery.findIndex((item) => {
       return item._id === data._id
     })
-    state.order.splice(index, 1)
-    state.order.push(data)
+    state.delivery.splice(index, 1)
+    state.delivery.push(data)
   }
 }

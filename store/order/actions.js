@@ -3,13 +3,13 @@ import axios from 'axios'
 export default {
   fetch (context, token) {
     return new Promise((resolve, reject) => {
-      axios.get(process.env.api_url + '/order', {
+      axios.get(process.env.api_url + '/order/status/accepted', {
         headers: {
           authorization: token
         }
       })
         .then((response) => {
-          context.commit('setAllOrder', response.data)
+          context.commit('setOrder', response.data)
           resolve(response)
         })
         .catch((e) => {
@@ -20,18 +20,18 @@ export default {
     })
   },
 
-  add (context, data) {
+  toDelivery (context, data) {
     const token = data.token
     delete data.token
 
     return new Promise((resolve, reject) => {
-      axios.post(process.env.api_url + '/order', data, {
+      axios.put(process.env.api_url + '/order/toDelivery/', data, {
         headers: {
           authorization: token
         }
       })
         .then((response) => {
-          context.commit('setOrder', response.data)
+          context.commit('editOrder', response.data)
           resolve(response)
         })
         .catch((e) => {

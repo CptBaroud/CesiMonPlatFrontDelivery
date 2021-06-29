@@ -1,9 +1,12 @@
 import axios from 'axios'
 
 export default {
-  fetch (context, token) {
+  fetch (context, data) {
+    const token = data.token
+    delete data.token
+
     return new Promise((resolve, reject) => {
-      axios.get(process.env.api_url + '/delivery', {
+      axios.get(process.env.api_url + '/delivery/deliveryMan/' + data.user, {
         headers: {
           authorization: token
         }
@@ -15,6 +18,27 @@ export default {
         // eslint-disable-next-line no-console
           console.error(e)
           reject(e)
+        })
+    })
+  },
+
+  create (context, data) {
+    const token = data.token
+    delete data.token
+
+    return new Promise((resolve, reject) => {
+      axios.post(process.env.api_url + '/delivery/', data, {
+        headers: {
+          authorization: token
+        }
+      })
+        .then((response) => {
+          context.commit('addDelivery', response.data)
+          resolve(response)
+        }).catch((e) => {
+        // eslint-disable-next-line no-console
+          console.error(e)
+          reject(onerror)
         })
     })
   },
