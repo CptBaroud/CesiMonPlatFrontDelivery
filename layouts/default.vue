@@ -175,6 +175,26 @@ export default {
       })
       this.$store.dispatch('order/fetch', this.$auth.getToken('local'))
     }
+
+    // On ecoute le socket
+    this.socket = this.$nuxtSocket({
+      name: 'main'
+    })
+
+    this.socket.on('order', (data) => {
+      if (data.update) {
+        this.$store.dispatch('order/fetch', this.$auth.getToken('local'))
+      }
+    })
+
+    this.socket.on('delivery', (data) => {
+      if (data.update) {
+        this.$store.dispatch('delivery/fetch', {
+          token: this.$auth.getToken('local'),
+          user: this.$auth.user.id
+        })
+      }
+    })
   },
   methods: {
     switchTheme () {
