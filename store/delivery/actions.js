@@ -64,12 +64,12 @@ export default {
     })
   },
 
-  close (context, data) {
+  closeDeliveryMan (context, data) {
     const token = data.token
     delete data.token
 
     return new Promise((resolve, reject) => {
-      axios.put(process.env.api_url + '/delivery/close', data, {
+      axios.put(process.env.api_url + '/delivery/closeDeliveryMan', data, {
         headers: {
           authorization: token
         }

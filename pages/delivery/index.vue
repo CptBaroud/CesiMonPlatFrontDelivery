@@ -43,6 +43,7 @@ export default {
   components: {
     deliveriesTable
   },
+  middleware: 'auth',
   computed: {
     delivery: {
       get () {

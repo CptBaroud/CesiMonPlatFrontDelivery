@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col
-        lg="4"
+        lg="12"
         md="12"
       >
         <v-card rounded="xl" flat color="background">
@@ -36,7 +36,6 @@
             </v-card-text>
           </v-card>
         </v-card>
-        <VueQr text="Hello, World!" />
       </v-col>
     </v-row>
   </v-container>
@@ -49,6 +48,7 @@ export default {
   components: {
     orderCard
   },
+  middleware: 'auth',
   computed: {
     delivery: {
       get () {

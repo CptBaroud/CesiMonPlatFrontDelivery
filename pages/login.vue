@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     logo () {
-      return this.$vuetify.theme.dark ? 'http://localhost:3000/svg/logoTextLivreurDark.svg' : 'http://localhost:3000/svg/logoTextLivreurLight.svg'
+      return this.$vuetify.theme.dark ? process.env.api_url + '/svg/logoTextLivreurDark.svg' : process.env.api_url + '/svg/logoTextLivreurLight.svg'
     }
   },
   methods: {

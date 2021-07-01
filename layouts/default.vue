@@ -84,21 +84,21 @@
               </v-icon>
             </v-badge>
           </template>
-          <!--<v-list rounded color="secondary" max-width="375">
-              <template v-for="(item, a) in notification">
-                <notification
-                  :key="a"
-                  :notification="item"
-                />
-              </template>
-              <v-list-item to="/notifications" class="d-flex justify-center">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    En voir plus
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>!-->
+          <v-list rounded color="secondary" max-width="375">
+            <template v-for="(item, a) in notification">
+              <notification
+                :key="a"
+                :notification="item"
+              />
+            </template>
+            <v-list-item to="/notifications" class="d-flex justify-center">
+              <v-list-item-content>
+                <v-list-item-title>
+                  En voir plus
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
         </v-menu>
         <v-list color="background" dense rounded class="mr-8">
           <v-menu open-on-hover bottom offset-y>
@@ -118,7 +118,8 @@
             </template>
             <v-list rounded color="background">
               <v-list-item
-                disabled
+                nuxt
+                to="/profil"
               >
                 <v-list-item-title>Mon compte</v-list-item-title>
               </v-list-item>
@@ -139,7 +140,7 @@
 export default {
   data () {
     return {
-      drawer: false,
+      drawer: true,
       orderDrawer: true,
       fixed: false,
       items: [
@@ -152,19 +153,20 @@ export default {
           icon: 'mdi-truck-outline',
           title: 'Deliveries',
           to: '/delivery'
-        },
-        {
-          icon: 'mdi-flag-outline',
-          title: 'Deliveries Done',
-          to: '/deliveries-done'
         }
       ],
       miniVariant: true
     }
   },
   computed: {
+    notifications: {
+      get () {
+        return this.$store.getters['notification/notification']
+      }
+    },
+
     logo () {
-      return this.$vuetify.theme.dark ? 'http://localhost:3000/images/logoDark.svg' : 'http://localhost:3000/images/logoLight.svg'
+      return this.$vuetify.theme.dark ? process.env.api_url + '/images/logoDark.svg' : process.env.api_url + '/images/logoLight.svg'
     }
   },
   mounted () {
@@ -174,6 +176,10 @@ export default {
         user: this.$auth.user.id
       })
       this.$store.dispatch('order/fetch', this.$auth.getToken('local'))
+      this.$store.dispatch('notification/fetch', {
+        token: this.$auth.getToken('local'),
+        user: this.$auth.user.id
+      })
     }
 
     // On ecoute le socket
@@ -193,6 +199,28 @@ export default {
           token: this.$auth.getToken('local'),
           user: this.$auth.user.id
         })
+      }
+    })
+
+    this.socket.on('notification', (data) => {
+      if (data.update && data.user === this.$auth.user.id) {
+        this.$store.dispatch('notification/fetch', {
+          token: this.$auth.getToken('local'),
+          user: this.$auth.user.id
+        })
+        if (data.data.info) {
+          switch (data.data.info.type) {
+            case 0:
+              this.$toast.info(data.data.title)
+              break
+            case 1:
+              this.$toast.success(data.data.title)
+              break
+            case 2:
+              this.$toast.success(data.data.title)
+              break
+          }
+        }
       }
     })
   },

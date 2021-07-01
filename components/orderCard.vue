@@ -49,7 +49,9 @@
         </v-list-item>
       </v-list>
     </v-card-text>
-    <v-card-actions>
+    <v-card-actions
+      v-if="showButton"
+    >
       <v-spacer />
       <v-btn
         color="primary"
@@ -85,6 +87,11 @@ export default {
     color: {
       type: String,
       default: 'secondary',
+      required: false
+    },
+    showButton: {
+      type: Boolean,
+      default: true,
       required: false
     }
   },
