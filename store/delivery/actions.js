@@ -69,7 +69,7 @@ export default {
     delete data.token
 
     return new Promise((resolve, reject) => {
-      axios.put(process.env.api_url + '/delivery/closeDeliveryMan', data, {
+      axios.put(process.env.api_url + '/delivery/closeDeliveryMan/' + data._id, data, {
         headers: {
           authorization: token
         }

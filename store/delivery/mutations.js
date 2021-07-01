@@ -20,7 +20,6 @@ export default {
       return item._id === data._id
     })
     state.delivery.splice(index, 1)
-    state.delivery.push(data)
   },
 
   takenDelivery (state, data) {

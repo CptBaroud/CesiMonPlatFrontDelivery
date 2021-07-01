@@ -60,6 +60,13 @@
       >
         Accepter
       </v-btn>
+      <v-btn
+        color="error"
+        rounded
+        @click="toDelivery"
+      >
+        Refuser
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -147,6 +154,10 @@ export default {
         default:
           return 'mdi-food'
       }
+    },
+
+    declined (item) {
+      this.$store.commit('delivery/refuseDelivery', item)
     },
 
     toDelivery () {
