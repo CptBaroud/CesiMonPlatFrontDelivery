@@ -351,7 +351,7 @@ export default {
     copyUrl () {
       this.$toast.success('Lien copier dans le presse papier')
       const el = document.createElement('textarea')
-      el.value = process.env.restaurantUrl + '/register?referalCode=' + this.$auth.user.referalCode
+      el.value = process.env.client_url + '/register?referalCode=' + this.$auth.user.referalCode
       el.setAttribute('readonly', '')
       el.style.position = 'absolute'
       el.style.left = '-9999px'

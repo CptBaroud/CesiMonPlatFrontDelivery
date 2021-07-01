@@ -123,10 +123,10 @@ export default {
     }
   },
   methods: {
-    delivered (item) {
+    delivered () {
       this.$store.dispatch('delivery/closeDeliveryMan', {
         token: this.$auth.getToken('local'),
-        item
+        _id: this.delivery._id
       })
     }
   }

@@ -128,7 +128,7 @@ export default {
     register () {
       this.registerPayload.token = this.$auth.getToken('local')
       this.registerPayload.address = ''
-      this.registerPayload.role = 2
+      this.registerPayload.role = 1
 
       this.$store.dispatch('user/createAccount', this.registerPayload).then((response) => {
         if (response.status === 200) {

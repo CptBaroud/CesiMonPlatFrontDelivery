@@ -1,8 +1,8 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - Delivery',
-    title: 'Delivery',
+    titleTemplate: '%s - Livreur',
+    title: 'Livreur',
     htmlAttrs: {
       lang: 'fr'
     },
@@ -21,8 +21,7 @@ export default {
 
   env: {
     api_url: 'http://localhost:3000',
-    client_url: 'http://localhost:8000',
-    restaurant_url: 'http://localhost:8001'
+    client_url: 'http://127.0.0.4:8000'
   },
 
   server: {
