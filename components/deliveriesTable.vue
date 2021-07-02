@@ -162,6 +162,8 @@ export default {
         case 3:
           return 'info'
         case 5:
+          return 'info'
+        case 6:
           return 'success'
         default:
           return 'primary'
@@ -178,6 +180,8 @@ export default {
           return 'En livraison'
         case 5:
           return 'Livrée'
+        case 6:
+          return 'livrée'
         default:
           return 'Indéfinis'
       }
