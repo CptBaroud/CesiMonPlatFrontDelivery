@@ -69,9 +69,9 @@
           <v-menu open-on-hover bottom offset-y max-height="300">
             <template #activator="{ on, attrs }">
               <v-badge
-                :content="2"
+                :content="notifications.length"
                 style="border-color: var(v--background-color)"
-                :value="2"
+                :value="notifications.length"
                 class="mr-4"
                 color="green"
                 bordered
